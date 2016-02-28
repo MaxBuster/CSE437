@@ -1,0 +1,121 @@
+
+#BG {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#One {
+    position: fixed;
+    left: 0px;
+    top: 94px;
+    cursor: pointer;
+}
+
+#Two {
+    position: fixed;
+    left: 71px;
+    top: 94px;
+    cursor: pointer;
+}
+
+#Three {
+    position: fixed;
+    left: 142px;
+    top: 94px;
+    cursor: pointer;
+}
+
+#Four {
+    position: fixed;
+    left: 0px;
+    top: 143px;
+    cursor: pointer;
+}
+
+#Five {
+    position: fixed;
+    left: 71px;
+    top: 143px;
+    cursor: pointer;
+}
+
+#Six {
+    position: fixed;
+    left: 142px;
+    top: 143px;
+    cursor: pointer;
+}
+
+#Seven {
+    position: fixed;
+    left: 0px;
+    top: 193px;
+    cursor: pointer;
+}
+
+#Eight {
+    position: fixed;
+    left: 71px;
+    top: 193px;
+    cursor: pointer;
+}
+
+#Nine {
+    position: fixed;
+    left: 142px;
+    top: 193px;
+    cursor: pointer;
+}
+
+#Star {
+    position: fixed;
+    left: 0px;
+    top: 241px;
+    cursor: pointer;
+}
+
+#Zero {
+    position: fixed;
+    left: 71px;
+    top: 241px;
+    cursor: pointer;
+}
+
+#Pound {
+    position: fixed;
+    left: 142px;
+    top: 241px;
+    cursor: pointer;
+}
+
+#Search {
+    position: fixed;
+    left: 0px;
+    top: 295px;
+}
+
+#Call {
+    position: fixed;
+    left: 64px;
+    top: 295px;
+}
+
+#Backspace {
+    position: fixed;
+    left: 151px;
+    top: 295px;
+    cursor: pointer;
+}
+
+#phoneNum {
+    position: fixed;
+    border:none;
+    background-color:transparent;
+    width:216px;
+    left: 0px;
+    top: 46px;
+    text-align:center;
+    font-size:24px;
+    color:#35BCEF;
+}
