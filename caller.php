@@ -1,35 +1,3 @@
-<!-- <html>
-	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<script type="text/javascript" src="http://media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> </script>
-	</head>
-
-	<body>
-		<script type="text/javascript">
-		    // Set up with TOKEN, a string generated server-side
-		    Twilio.Device.setup(token);
-		    /*
-		    Twilio.Device.ready(function(device) {
-			  // The device is now ready
-			  console.log("Twilio.Device is now ready for connections");
-			});
-			*/
-		</script>
-
-		<div id="voicecall">
-			<form>
-			<input type="tel" name="Phone Number" >
-			<button >Call</button>
-			</form>
-		</div>
-		
-		<div id="transcript">
-			
-		</div>
-	</body>
-</html> -->
-
 <?php
 include 'vendor/twilio/sdk/Services/Twilio/Capability.php';
  
@@ -40,13 +8,12 @@ $authToken  = 'ad05cbfca2f35d2158e8d26458bfddad';
 $capability = new Services_Twilio_Capability($accountSid, $authToken);
 $capability->allowClientOutgoing('APabe7650f654fc34655fc81ae71caa3ff');
 $token = $capability->generateToken();
-echo $token;
 ?>
  
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello Client Monkey 1</title>
+    <title>Transcribler</title>
     <script type="text/javascript"
       src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
     <script type="text/javascript"
@@ -75,11 +42,12 @@ echo $token;
       }
     </script>
   </head>
+
+
   <body>
+    <h1>Transcribler</h1>
     <button class="call" onclick="call();">
       Call
     </button>
- 
-    <div id="log">Loading pigeons...</div>
   </body>
 </html>
