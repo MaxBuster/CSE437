@@ -14,13 +14,9 @@ $token = $capability->generateToken();
 <html>
   <head>
     <title>Transcribler</title>
-    <script type="text/javascript"
-      src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
-    <script type="text/javascript"
-      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
-    </script>
-    <link href="http://static0.twilio.com/marketing/bundles/quickstart/client.css"
-      type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link href="http://static0.twilio.com/marketing/bundles/quickstart/client.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript">
  
       Twilio.Device.setup("<?php echo $token; ?>");
