@@ -6,7 +6,7 @@ $accountSid = 'AC8b30817c60dc275b9e57b9e898716ddf';
 $authToken  = 'ad05cbfca2f35d2158e8d26458bfddad';
  
 $capability = new Services_Twilio_Capability($accountSid, $authToken);
-$capability->allowClientOutgoing('APabe7650f654fc34655fc81ae71caa3ff');
+$capability->allowClientOutgoing('AP3bd06ed684cf585f0f3f13d2ecfdc55f');
 $token = $capability->generateToken();
 ?>
  
@@ -38,7 +38,7 @@ $token = $capability->generateToken();
       });
  
       function call() {
-        Twilio.Device.connect({PhoneNumber:7202848957});
+        Twilio.Device.connect({PhoneNumber:9788443113});
       }
 
       function hangup() {
