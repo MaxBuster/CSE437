@@ -18,7 +18,6 @@ $token = $capability->generateToken();
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link href="http://static0.twilio.com/marketing/bundles/quickstart/client.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript">
- 
       Twilio.Device.setup("<?php echo $token; ?>");
  
       Twilio.Device.ready(function (device) {
@@ -44,6 +43,14 @@ $token = $capability->generateToken();
       function hangup() {
         Twilio.Device.disconnectAll();
       }
+	  
+	  var recognition = new webkitSpeechRecognition();
+		recognition.continuous = true;
+		recognition.interimResults = true;
+		recognition.onresult = function(event) { 
+		  console.log(event) 
+		}
+		recognition.start();
     </script>
   </head>
 
