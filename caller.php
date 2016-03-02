@@ -48,7 +48,7 @@ $token = $capability->generateToken();
 		recognition.continuous = true;
 		recognition.interimResults = true;
 		recognition.onresult = function(event) { 
-		  console.log(event) 
+		  console.log(event);
 		}
 		recognition.start();
     </script>
