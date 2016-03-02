@@ -37,18 +37,26 @@ $token = $capability->generateToken();
       });
  
       function call() {
-        Twilio.Device.connect({PhoneNumber:7202848957});
+        Twilio.Device.connect({PhoneNumber:9788443113});
       }
 
       function hangup() {
         Twilio.Device.disconnectAll();
       }
 	  
+		var curRes = 0;
 		var recognition = new webkitSpeechRecognition();
 		recognition.continuous = true;
 		recognition.interimResults = true;
 		recognition.onresult = function(event) { 
-		  console.log(event);
+			console.log(event.results[curRes][0].transcript + " : " + event.results[curRes][0].confidence + " : " + event.results[curRes].isFinal);
+			if(event.results[curRes].isFinal) {
+				curRes++;
+			}
+		}
+		recognition.onend = function() { 
+			console.log("Speech recognition ended.");
+			recognition.start();
 		}
 		recognition.start();
     </script>
