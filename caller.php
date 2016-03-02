@@ -38,7 +38,7 @@ $token = $capability->generateToken();
       });
  
       function call() {
-        Twilio.Device.connect({phone_number:7202848957});
+        Twilio.Device.connect({PhoneNumber:7202848957});
       }
 
       function hangup() {
