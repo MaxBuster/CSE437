@@ -24,5 +24,6 @@ if (preg_match("/^[\d\+\-\(\) ]+$/", $number)) {
 <Response>
     <Dial callerId="<?php echo $callerId ?>">
           <?php echo $numberOrClient ?>
+          <Record transcribe="true" />
     </Dial>
 </Response>
