@@ -52,6 +52,7 @@ $token = $capability->generateToken();
     console.log(event) 
     }
     recognition.start();
+
     </script>
     <script type="text/javascript" src="speechrec.js"></script>
   </head>
