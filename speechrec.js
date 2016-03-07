@@ -23,8 +23,21 @@ if (!('webkitSpeechRecognition' in window)) {
 	      }
 	    }
 
-	    final_span.innerHTML = final_transcript;
-	    interim_span.innerHTML = interim_transcript;
+	    final_transcript = capitalize(final_transcript);
+	    final_span.innerHTML = linebreak(final_transcript);
+	    interim_span.innerHTML = linebreak(interim_transcript);
+	}
+
+
+	var two_line = /\n\n/g;
+	var one_line = /\n/g;
+	function linebreak(s) {
+	  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+	}
+
+	var first_char = /\S/;
+	function capitalize(s) {
+	  return s.replace(first_char, function(m) { return m.toUpperCase(); });
 	}
 
 	recognition.onend = function() {
