@@ -17,7 +17,6 @@ $token = $capability->generateToken();
     <title>Transcribler</title>
     <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <link href="http://static0.twilio.com/marketing/bundles/quickstart/client.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript">
     Twilio.Device.setup("<?php echo $token; ?>");
  
@@ -38,7 +37,8 @@ $token = $capability->generateToken();
     });
 
     function call() {
-      var phone_number = document.getElementById("phone_number");
+      var phone_number = document.getElementById("phone_number").value;
+      console.log(phone_number);
       Twilio.Device.connect({PhoneNumber:phone_number});
     }
 
@@ -59,7 +59,7 @@ $token = $capability->generateToken();
     </button>
     <button class="hangup" onclick="hangup();">
       Hangup
-    </button>
+    </button></br>
     <button id="rec" value="start">Transcribe</button>
     <div id="transcript">
       <span id="final_span"></span>
