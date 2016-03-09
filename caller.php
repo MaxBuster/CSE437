@@ -38,7 +38,6 @@ $token = $capability->generateToken();
 
     function call() {
       var phone_number = document.getElementById("phone_number").value;
-      console.log(phone_number);
       Twilio.Device.connect({PhoneNumber:phone_number});
     }
 
