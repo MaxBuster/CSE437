@@ -15,9 +15,11 @@ $token = $capability->generateToken();
 <html>
   <head>
     <title>Transcribler</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
+
     Twilio.Device.setup("<?php echo $token; ?>");
  
     Twilio.Device.ready(function (device) {
@@ -50,17 +52,22 @@ $token = $capability->generateToken();
   </head>
 
 
-  <body>
+  <body class="panel-body">
     <h1>Transcribler</h1>
+    <div id="control" class="col-xs-6 pull-left">
     <input type="text" id="phone_number">
+    <br/>
     <button class="call" onclick="call();">
       Call
     </button>
     <button class="hangup" onclick="hangup();">
       Hangup
-    </button></br>
-    <button id="rec" value="start">Transcribe</button>
-    <div id="transcript">
+    </button>
+    <button id="rec" value="start">
+      Transcribe
+    </button>
+    </div>
+    <div id="transcript" class="col-xs-6 pull-right table-bordered">
       <span id="final_span"></span>
       </br>
       <span id="interim_span"></span>
