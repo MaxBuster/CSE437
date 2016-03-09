@@ -38,22 +38,13 @@ $token = $capability->generateToken();
     });
 
     function call() {
-      Twilio.Device.connect({PhoneNumber:7202848957});
+      var phone_number = document.getElementById("phone_number");
+      Twilio.Device.connect({PhoneNumber:phone_number});
     }
 
     function hangup() {
       Twilio.Device.disconnectAll();
     }
-	  
-    /*
-	  var recognition = new webkitSpeechRecognition();
-		recognition.continuous = true;
-		recognition.interimResults = true;
-		recognition.onresult = function(event) { 
-		  console.log(event);
-		}
-		recognition.start();
-    */
 
     </script>
     <script type="text/javascript" src="speechrec.js"></script>
@@ -62,6 +53,7 @@ $token = $capability->generateToken();
 
   <body>
     <h1>Transcribler</h1>
+    <input type="text" id="phone_number">
     <button class="call" onclick="call();">
       Call
     </button>

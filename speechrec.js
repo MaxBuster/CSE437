@@ -45,14 +45,6 @@ if (!('webkitSpeechRecognition' in window)) {
 	};
 
 	$(function(ready){
-		/*
-			$( ".call" ).click(function() {
-			recognition.start();
-			});
-			$( ".hangup").click(function() {
-				recognition.stop();
-			});
-		*/
 		$( "#rec" ).click(function() {
 			if($(this).attr('value')=="start") {
 				$(this).prop('value', 'stop');
