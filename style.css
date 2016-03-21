@@ -1,115 +1,115 @@
 
 #BG {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 0px;
 }
 
 #One {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 94px;
     cursor: pointer;
 }
 
 #Two {
-    position: fixed;
+    position: absolute;
     left: 71px;
     top: 94px;
     cursor: pointer;
 }
 
 #Three {
-    position: fixed;
+    position: absolute;
     left: 142px;
     top: 94px;
     cursor: pointer;
 }
 
 #Four {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 143px;
     cursor: pointer;
 }
 
 #Five {
-    position: fixed;
+    position: absolute;
     left: 71px;
     top: 143px;
     cursor: pointer;
 }
 
 #Six {
-    position: fixed;
+    position: absolute;
     left: 142px;
     top: 143px;
     cursor: pointer;
 }
 
 #Seven {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 193px;
     cursor: pointer;
 }
 
 #Eight {
-    position: fixed;
+    position: absolute;
     left: 71px;
     top: 193px;
     cursor: pointer;
 }
 
 #Nine {
-    position: fixed;
+    position: absolute;
     left: 142px;
     top: 193px;
     cursor: pointer;
 }
 
 #Star {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 241px;
     cursor: pointer;
 }
 
 #Zero {
-    position: fixed;
+    position: absolute;
     left: 71px;
     top: 241px;
     cursor: pointer;
 }
 
 #Pound {
-    position: fixed;
+    position: absolute;
     left: 142px;
     top: 241px;
     cursor: pointer;
 }
 
 #Search {
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 295px;
 }
 
 #Call {
-    position: fixed;
+    position: absolute;
     left: 64px;
     top: 295px;
 }
 
 #Backspace {
-    position: fixed;
+    position: absolute;
     left: 151px;
     top: 295px;
     cursor: pointer;
 }
 
-#phoneNum {
-    position: fixed;
+#phone_number {
+    position: absolute;
     border:none;
     background-color:transparent;
     width:216px;
@@ -118,4 +118,8 @@
     text-align:center;
     font-size:24px;
     color:#35BCEF;
+}
+
+#Phone {
+	position: relative;
 }
