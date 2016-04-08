@@ -1,60 +1,60 @@
-<?php
-include 'vendor/twilio/sdk/Services/Twilio/Capability.php';
- 
-// put your Twilio API credentials here
-$accountSid = 'AC8b30817c60dc275b9e57b9e898716ddf';
-$authToken  = 'ad05cbfca2f35d2158e8d26458bfddad';
-$appSid = 'AP3bd06ed684cf585f0f3f13d2ecfdc55f';
- 
-$capability = new Services_Twilio_Capability($accountSid, $authToken);
-$capability->allowClientOutgoing($appSid);
-$token = $capability->generateToken();
-?>
- 
 <!DOCTYPE html>
 <html>
   <head>
     <title>Transcribler</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.3/twilio.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js"></script>
-    <script type="text/javascript">
-
-    Twilio.Device.setup("<?php echo $token; ?>");
- 
-    Twilio.Device.ready(function (device) {
-      $("#log").text("Ready");
-    });
-
-    Twilio.Device.error(function (error) {
-      $("#log").text("Error: " + error.message);
-    });
-
-    Twilio.Device.connect(function (conn) {
-      $("#log").text("Successfully established call");
-    });
-
-    Twilio.Device.disconnect(function (conn) {
-      $("#log").text("Call ended");
-    });
-
-    function call() {
-      var phone_number = document.getElementById("phone_number").value;
-      Twilio.Device.connect({PhoneNumber:phone_number});
-    }
-
-    function hangup() {
-      Twilio.Device.disconnectAll();
-    }
-
-    </script>
     <script type="text/javascript" src="speechrec.js"></script>
   </head>
 
 
   <body class="panel-body">
+    <video id="remoteVideo"></video>
+    <video id="localVideo" muted="muted"></video>
+
+    <script src="sip-0.7.1.min.js"></script>
+    <script src="my-javascript.js"></script>
+      
+    <script type="text/javascript">
+        var config = {
+          // Replace this IP address with your FreeSWITCH IP address
+          uri: '1000@127.0.0.1',
+
+          // Replace this IP address with your FreeSWITCH IP address
+          // and replace the port with your FreeSWITCH port
+          ws_servers: 'ws://127.0.0.1:5066',
+
+          // FreeSWITCH Default Username
+          authorizationUser: '1000',
+
+          // FreeSWITCH Default Password
+          password: '1234'
+        };
+        
+        var userAgent = new SIP.UA(config);
+        var session;
+        var options = {
+            media: {
+                constraints: {
+                    audio: true,
+                    video: false
+                }
+            }
+        };
+        
+        function call() {
+            var phone_number = document.getElementById("phone_number").value;
+            //makes the call
+            session = userAgent.invite('sip:welcome@onsip.com', options);
+        }
+
+        function hangup() {
+            session.bye();
+        }
+    </script>
+      
     <h1>Transcribler</h1>
     <div id="control" class="col-xs-6 pull-left">
     <div>
