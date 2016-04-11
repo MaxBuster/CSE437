@@ -11,20 +11,17 @@
 
 
   <body class="panel-body">
-    <video id="remoteVideo"></video>
-    <video id="localVideo" muted="muted"></video>
 
-    <script src="sip-0.7.1.min.js"></script>
-    <script src="my-javascript.js"></script>
+    <script src="sip-0.7.3.js"></script>
       
     <script type="text/javascript">
         var config = {
           // Replace this IP address with your FreeSWITCH IP address
-          uri: '1000@127.0.0.1',
+          uri: '1000@52.72.110.7',
 
           // Replace this IP address with your FreeSWITCH IP address
           // and replace the port with your FreeSWITCH port
-          ws_servers: 'ws://127.0.0.1:5066',
+          ws_servers: 'ws://52.72.110.7:5066',
 
           // FreeSWITCH Default Username
           authorizationUser: '1000',
@@ -46,8 +43,10 @@
         
         function call() {
             var phone_number = document.getElementById("phone_number").value;
+            var sip_dest = 'sip:scribe.sip.twilio.com';
+            alert(sip_dest);
             //makes the call
-            session = userAgent.invite('sip:welcome@onsip.com', options);
+            session = userAgent.invite(sip_dest, options);
         }
 
         function hangup() {
