@@ -16,6 +16,8 @@
       
     <script type="text/javascript">
         var config = {
+		  traceSip: true,
+		  
           // Replace this IP address with your FreeSWITCH IP address
           uri: '1000@52.72.110.7',
 
@@ -43,8 +45,9 @@
         
         function call() {
             var phone_number = document.getElementById("phone_number").value;
-            var sip_dest = 'sip:scribe.sip.twilio.com';
-            alert(sip_dest);
+            //var sip_dest = 'sip:scribe.sip.twilio.com';
+            var sip_dest = 'sip:411@ideasip.com';
+			alert(sip_dest);
             //makes the call
             session = userAgent.invite(sip_dest, options);
         }
