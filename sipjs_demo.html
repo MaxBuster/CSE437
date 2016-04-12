@@ -4,9 +4,11 @@
     <title>Transcribler</title>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://sipjs.com/download/sip-0.7.0.js"></script>
+<script src="sipjs_demo.js"></script>
   </head>
   <body>
-<script src="http://sipjs.com/download/sip-0.7.0.js"></script>
 
 <div id="content-video-audio">
   <h2>In-browser Video Chat is Now a Breeze</h2>
@@ -15,7 +17,7 @@
     <div class="column-box">
       <div class="demo-window">
         <div class="demo-view">
-          <video id="video-of-bob" muted="muted"></video>
+          <video id="video-of-bob"></video>
         </div>
         <div class="left">
           <h4>Alice's View</h4>
@@ -28,7 +30,7 @@
     <div class="column-box">
       <div class="demo-window">
         <div class="demo-view">
-          <video id="video-of-alice" muted="muted"></video>
+          <video id="video-of-alice"></video>
         </div>
         <div class="left">
           <h4>Bob's View</h4>

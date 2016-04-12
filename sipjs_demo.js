@@ -37,10 +37,12 @@ if (token === '') {
                        + 'expires=' + d.toUTCString() + ';');
 }
 var domain = 'sipjs.onsip.com';
-var aliceURI      = 'alice.' + window.token + '@' + domain;
+//var aliceURI      = 'alice' + window.token + '@' + domain;
+var aliceURI      = 'alice@' + domain;
 var aliceName     = 'Alice';
 
-var bobURI        = 'bob.' + window.token + '@' + domain;
+//var bobURI        = 'bob' + window.token + '@' + domain;
+var bobURI        = '1000@' + domain;
 var bobName       = 'Bob';
 
 // Function: mediaOptions
@@ -126,7 +128,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
     userAgent.on('invite', function (incomingSession) {
         onCall = true;
         session = incomingSession;
-        var options = mediaOptions(false, true, remoteRender, null);
+        var options = mediaOptions(true, true, remoteRender, null);
         button.firstChild.nodeValue = 'hang up';
         remoteRender.style.visibility = 'visible';
         session.accept(options);
@@ -154,7 +156,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
             button.firstChild.nodeValue = 'hang up';
             remoteRender.style.visibility = 'visible';
             session = makeCall(userAgent, target,
-                               false, true,
+                               true, true,
                                remoteRender, null);
             session.on('bye', function () {
                 onCall = false;
@@ -509,13 +511,13 @@ function createDataMsgTag(from, msgBody, filename, dataURI) {
 (function () {
 if (SIP.WebRTC.isSupported()) {
     // Now we do SIP.js stuff
-    window.aliceUA = createUA(aliceURI, aliceName);
-    window.bobUA   = createUA(bobURI, bobName);
-    window.aliceDataUA = createDataUA(aliceURI, aliceName);
-    window.bobDataUA = createDataUA(bobURI, bobName);
+	window.bobUA   = createUA(bobURI, bobName);
+	//window.aliceUA = createUA(aliceURI, aliceName);
+	window.bobDataUA = createDataUA(bobURI, bobName);
+    //window.aliceDataUA = createDataUA(aliceURI, aliceName);
 
     // We want to only run the demo if all users for the demo can register
-    var numToRegister = 4;
+    var numToRegister = 2;
     var numRegistered = 0;
     var registrationFailed = false;
     var markAsRegistered = function () {
@@ -530,44 +532,44 @@ if (SIP.WebRTC.isSupported()) {
     };
     // We don't want to proceed until we've registered all users.
     // For each registered user, increase the counter.
-    aliceUA.on('registered', markAsRegistered);
+    //aliceUA.on('registered', markAsRegistered);
     bobUA.on('registered', markAsRegistered);
-    aliceDataUA.on('registered', markAsRegistered);
+    //aliceDataUA.on('registered', markAsRegistered);
     bobDataUA.on('registered', markAsRegistered);
     // If any registration fails, then we need to disable the app and tell the
     // user that we could not register them.
-    aliceUA.on('registrationFailed', failRegistration);
+    //aliceUA.on('registrationFailed', failRegistration);
     bobUA.on('registrationFailed', failRegistration);
-    aliceDataUA.on('registrationFailed', failRegistration);
+    //aliceDataUA.on('registrationFailed', failRegistration);
     bobDataUA.on('registrationFailed', failRegistration);
 
     // Unregister the user agents and terminate all active sessions when the
     // window closes or when we navigate away from the page
     window.onunload = function () {
-        aliceUA.stop();
+        //aliceUA.stop();
         bobUA.stop();
-        aliceDataUA.stop();
+        //aliceDataUA.stop();
         bobDataUA.stop();
     };
 
     // Only run the demo if we could register every user agent
     function setupInterfaces() {
-        setUpVideoInterface(aliceUA, bobURI, 'video-of-bob', 'alice-video-button');
+        //setUpVideoInterface(aliceUA, bobURI, 'video-of-bob', 'alice-video-button');
         setUpVideoInterface(bobUA, aliceURI, 'video-of-alice', 'bob-video-button');
-        setUpMessageInterface(aliceUA, bobURI,
+        /*setUpMessageInterface(aliceUA, bobURI,
                               'alice-message-display',
                               'alice-message-input',
-                              'alice-message-button');
+                              'alice-message-button');*/
         setUpMessageInterface(bobUA, aliceURI,
                               'bob-message-display',
                               'bob-message-input',
                               'bob-message-button');
-        setUpDataInterface(aliceDataUA, bobURI,
+        /*setUpDataInterface(aliceDataUA, bobURI,
                            'alice-data-display',
                            'alice-file-choose-input',
                            'alice-filename',
                            'alice-data-share-button',
-                           'alice-file-error-msg');
+                           'alice-file-error-msg');*/
         setUpDataInterface(bobDataUA, aliceURI,
                            'bob-data-display',
                            'bob-file-choose-input',
