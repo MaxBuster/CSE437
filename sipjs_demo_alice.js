@@ -38,11 +38,11 @@ if (token === '') {
 }
 var domain = 'sipjs.onsip.com';
 //var aliceURI      = 'alice' + window.token + '@' + domain;
-var aliceURI      = 'alice@' + domain;
+var aliceURI      = 'devlab-alice@' + domain;
 var aliceName     = 'Alice';
 
 //var bobURI        = 'bob' + window.token + '@' + domain;
-var bobURI        = '1000@' + domain;
+var bobURI        = 'devlab-bob@' + domain;
 var bobName       = 'Bob';
 
 // Function: mediaOptions
@@ -511,10 +511,10 @@ function createDataMsgTag(from, msgBody, filename, dataURI) {
 (function () {
 if (SIP.WebRTC.isSupported()) {
     // Now we do SIP.js stuff
-	window.bobUA   = createUA(bobURI, bobName);
-	//window.aliceUA = createUA(aliceURI, aliceName);
-	window.bobDataUA = createDataUA(bobURI, bobName);
-    //window.aliceDataUA = createDataUA(aliceURI, aliceName);
+	//window.bobUA   = createUA(bobURI, bobName);
+	window.aliceUA = createUA(aliceURI, aliceName);
+	//window.bobDataUA = createDataUA(bobURI, bobName);
+    window.aliceDataUA = createDataUA(aliceURI, aliceName);
 
     // We want to only run the demo if all users for the demo can register
     var numToRegister = 2;
@@ -532,50 +532,50 @@ if (SIP.WebRTC.isSupported()) {
     };
     // We don't want to proceed until we've registered all users.
     // For each registered user, increase the counter.
-    //aliceUA.on('registered', markAsRegistered);
-    bobUA.on('registered', markAsRegistered);
-    //aliceDataUA.on('registered', markAsRegistered);
-    bobDataUA.on('registered', markAsRegistered);
+    aliceUA.on('registered', markAsRegistered);
+    //bobUA.on('registered', markAsRegistered);
+    aliceDataUA.on('registered', markAsRegistered);
+    //bobDataUA.on('registered', markAsRegistered);
     // If any registration fails, then we need to disable the app and tell the
     // user that we could not register them.
-    //aliceUA.on('registrationFailed', failRegistration);
-    bobUA.on('registrationFailed', failRegistration);
-    //aliceDataUA.on('registrationFailed', failRegistration);
-    bobDataUA.on('registrationFailed', failRegistration);
+    aliceUA.on('registrationFailed', failRegistration);
+    //bobUA.on('registrationFailed', failRegistration);
+    aliceDataUA.on('registrationFailed', failRegistration);
+    //bobDataUA.on('registrationFailed', failRegistration);
 
     // Unregister the user agents and terminate all active sessions when the
     // window closes or when we navigate away from the page
     window.onunload = function () {
-        //aliceUA.stop();
-        bobUA.stop();
-        //aliceDataUA.stop();
-        bobDataUA.stop();
+        aliceUA.stop();
+        //bobUA.stop();
+        aliceDataUA.stop();
+        //bobDataUA.stop();
     };
 
     // Only run the demo if we could register every user agent
     function setupInterfaces() {
-        //setUpVideoInterface(aliceUA, bobURI, 'video-of-bob', 'alice-video-button');
-        setUpVideoInterface(bobUA, aliceURI, 'video-of-alice', 'bob-video-button');
-        /*setUpMessageInterface(aliceUA, bobURI,
+        setUpVideoInterface(aliceUA, bobURI, 'video-of-bob', 'alice-video-button');
+        //setUpVideoInterface(bobUA, aliceURI, 'video-of-alice', 'bob-video-button');
+        setUpMessageInterface(aliceUA, bobURI,
                               'alice-message-display',
                               'alice-message-input',
-                              'alice-message-button');*/
-        setUpMessageInterface(bobUA, aliceURI,
+                              'alice-message-button');
+        /*setUpMessageInterface(bobUA, aliceURI,
                               'bob-message-display',
                               'bob-message-input',
-                              'bob-message-button');
-        /*setUpDataInterface(aliceDataUA, bobURI,
+                              'bob-message-button');*/
+        setUpDataInterface(aliceDataUA, bobURI,
                            'alice-data-display',
                            'alice-file-choose-input',
                            'alice-filename',
                            'alice-data-share-button',
-                           'alice-file-error-msg');*/
-        setUpDataInterface(bobDataUA, aliceURI,
+                           'alice-file-error-msg');
+        /*setUpDataInterface(bobDataUA, aliceURI,
                            'bob-data-display',
                            'bob-file-choose-input',
                            'bob-filename',
                            'bob-data-share-button',
-                           'bob-file-error-msg');
+                           'bob-file-error-msg');*/
     }
     function failInterfaceSetup() {
         alert('Max registration limit hit. Could not register all user agents, so they cannot communicate. The app is disabled.');
