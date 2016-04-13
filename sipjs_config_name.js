@@ -11,6 +11,21 @@ function getCookie(key) {
 
 }
 
+function $_GET(param) {
+    var vars = {};
+    window.location.href.replace( location.hash, '' ).replace( 
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+            vars[key] = value !== undefined ? value : '';
+        }
+    );
+
+    if ( param ) {
+        return vars[param] ? vars[param] : null;    
+    }
+    return vars;
+}
+
 // This demo uses unauthenticated users on the "sipjs.onsip.com" demo domain.
 // To allow multiple users to run the demo without playing a game of
 // chatroulette, we give both callers in the demo a random token and then only
@@ -38,12 +53,16 @@ if (token === '') {
 }
 var domain = 'sipjs.onsip.com';
 //var aliceURI      = 'alice' + window.token + '@' + domain;
-var aliceURI      = 'devlab-alice@' + domain;
-var aliceName     = 'Alice';
+var myURI = $_GET('myURI');
+var myName = $_GET('myName');
+var aliceURI      = myURI + domain; // 'devlab-alice@' + domain;
+var aliceName     = myName // 'Alice';
 
 //var bobURI        = 'bob' + window.token + '@' + domain;
-var bobURI        = 'devlab-bob@' + domain;
-var bobName       = 'Bob';
+var otherURI = $_GET('otherURI');
+var otherName = $_GET('otherName');
+var bobURI        = otherURI + domain; // 'devlab-bob@' + domain;
+var bobName       = otherName // 'Bob';
 
 // Function: mediaOptions
 //   A shortcut function to construct the media options for an SIP session.
