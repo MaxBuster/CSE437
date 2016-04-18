@@ -26,6 +26,14 @@ function $_GET(param) {
     return vars;
 }
 
+function setUsers() {
+    var person1 = document.getElementById("person1").value;
+    var person2 = document.getElementById("person2").value;
+    var dataString = "?otherURI=" + encodeURIComponent(person1) + "@&otherName=" + encodeURIComponent(person1) + "&myURI=" + encodeURIComponent(person2) + "@&myName=" + encodeURIComponent(person2);
+    var url = window.location.href.split('?')[0];
+    window.location.href = url + dataString;
+}
+
 // This demo uses unauthenticated users on the "sipjs.onsip.com" demo domain.
 // To allow multiple users to run the demo without playing a game of
 // chatroulette, we give both callers in the demo a random token and then only
