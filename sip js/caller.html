@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://sipjs.com/download/sip-0.7.0.js"></script>
     <script src="config.js"></script>
+    <script type="text/javascript" src="speechrec.js"></script>
   </head>
 
   <body>
@@ -45,6 +46,16 @@
         </div>-->
         <div class="clearfix"></div>
       </div>
+    </div>
+
+    <button id="rec" value="start">
+      Transcribe
+    </button>
+    
+    <div id="transcript" class="col-xs-6 pull-right table-bordered">
+      <span id="final_span"></span>
+      </br>
+      <span id="interim_span"></span>
     </div>
     <!--<div id="content-message">
       <h2>Real-Time Messaging with a Dozen Lines of Code</h2>
