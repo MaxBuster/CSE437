@@ -5,45 +5,27 @@
   	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   	<meta content="utf-8" http-equiv="encoding">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://sipjs.com/download/sip-0.7.0.js"></script>
+    <script src="sip-0.7.3.js"></script>
     <script src="config.js"></script>
     <script type="text/javascript" src="speechrec.js"></script>
   </head>
 
   <body>
-  Person 1: <input type="text" id="person1"><br>
-  Person 2: <input type="text" id="person2"><br>
+  Their Name: <input type="text" id="person1"><br>
+  My Name: <input type="text" id="person2"><br>
   <button onclick="setUsers()">Set Callers</button><br>
     <div id="content-video-audio">
-      <h2>In-browser Video Chat is Now a Breeze</h2>
-      <h4 class="intro">Here's a demo. Start a video chat between Alice and Bob.</h4>
+      <h2>In-browser Video Chat with Live Audio Transcription</h2>
       <div class="two-column-boxes">
         <div class="column-box">
           <div class="demo-window">
             <div class="demo-view">
-              <video id="video-of-bob"></video>
+              <video id="video-of-other"></video>
             </div>
-            <div class="left">
-              <h4>Alice's View</h4>
-              <h5>Demo user one</h5>
-            </div>
-            <button id="alice-video-button" class="right" type="button">video</button>
+            <button id="my-video-button" class="right" type="button">video</button>
             <div class="clearfix"></div>
           </div>
         </div>
-        <!--<div class="column-box">
-          <div class="demo-window">
-            <div class="demo-view">
-              <video id="video-of-alice"></video>
-            </div>
-            <div class="left">
-              <h4>Bob's View</h4>
-              <h5>Demo user two</h5>
-            </div>
-            <button id="bob-video-button" class="right" type="button">video</button>
-            <div class="clearfix"></div>
-          </div>
-        </div>-->
         <div class="clearfix"></div>
       </div>
     </div>
@@ -54,7 +36,7 @@
     
     <div id="transcript" class="col-xs-6 pull-right table-bordered">
       <span id="final_span"></span>
-      </br>
+      <br/>
       <span id="interim_span"></span>
     </div>
     <!--<div id="content-message">
@@ -96,57 +78,6 @@
         <div class="clearfix"></div>
       </div>
     </div>
-    <div id="content-data-channel">
-      <h2>Send Real-Time Data In A Flash</h2>
-      <h4 class="intro">Go ahead. Upload a file as Alice and Download it as Bob.</h4>
-      <div class="two-column-boxes">
-        <div class="column-box">
-          <div class="demo-window">
-            <div class="demo-view">
-              <div id="alice-data-display" class="message-display">
-                <p class="message"><span class="message-body placeholder">No files yet sent or received</span></p>
-              </div>
-            </div>
-            <span class="file-chooser-hack">
-              <button id="alice-file-choose-button" class="file-choose-button dark-gray-bg" type="button">choose a file to send</button>
-              <input id="alice-file-choose-input" type="file" name="file" class="file-choose-button" />
-            </span>
-            <span id="alice-filename" class="message-body">no file selected</span>
-            <div class="message-body file-info-msg">Max file size is 16KB</div>
-            <div id="alice-file-error-msg" class="file-info-msg error-msg"></div>
-            <div class="left">
-              <h4>Alice's View</h4>
-              <h5>Demo user one</h5>
-            </div>
-            <button id="alice-data-share-button" class="right" type="button">share</button>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="column-box">
-          <div class="demo-window">
-            <div class="demo-view">
-              <div id="bob-data-display" class="message-display">
-                <p class="message"><span class="message-body placeholder">No files yet sent or received</span></p>
-              </div>
-            </div>
-            <span class="file-chooser-hack">
-              <button id="bob-file-choose-button" class="file-choose-button dark-gray-bg" type="button">choose a file to send</button>
-              <input id="bob-file-choose-input" type="file" name="file" class="file-choose-button" />
-            </span>
-            <span id="bob-filename" class="message-body">no file selected</span>
-            <div class="message-body file-info-msg">Max file size is 16KB</div>
-            <div id="bob-file-error-msg" class="file-info-msg error-msg"></div>
-            <div class="clearfix"></div>
-            <div class="left">
-              <h4>Bob's View</h4>
-              <h5>Demo user two</h5>
-            </div>
-            <button id="bob-data-share-button" class="right" type="button">share</button>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>-->
+    -->
   </body>
 </html>
