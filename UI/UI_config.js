@@ -148,11 +148,13 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
         session = incomingSession;
         var options = mediaOptions(true, true, remoteRender, null);
         button.firstChild.nodeValue = 'hang up';
+        $("#my_video_button").prop('value', 'stop');
         remoteRender.style.visibility = 'visible';
         session.accept(options);
         session.on('bye', function () {
             onCall = false;
             button.firstChild.nodeValue = 'video';
+            $("#my_video_button").prop('value', 'start');
             remoteRender.style.visibility = 'hidden';
             session = null;
         });
@@ -164,6 +166,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
         if (onCall) {
             onCall = false;
             button.firstChild.nodeValue = 'video';
+            $("#my_video_button").prop('value', 'start');
             remoteRender.style.visibility = 'hidden';
             session.bye();
             session = null;
@@ -172,6 +175,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
         else {
             onCall = true;
             button.firstChild.nodeValue = 'hang up';
+            $("#my_video_button").prop('value', 'stop');
             remoteRender.style.visibility = 'visible';
             session = makeCall(userAgent, target,
                                true, true,
@@ -179,6 +183,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
             session.on('bye', function () {
                 onCall = false;
                 button.firstChild.nodeValue = 'video';
+                $("#my_video_button").prop('value', 'start');
                 remoteRender.style.visibility = 'hidden';
                 session = null;
             });
