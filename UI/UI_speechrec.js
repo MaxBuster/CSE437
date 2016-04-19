@@ -45,7 +45,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	};
 
 	$(function(ready){
-		$( "#alice-video-button" ).click(function() {
+		$( "#my-video-button" ).click(function() {
 			if($(this).attr('value')=="start") {
 				$(this).prop('value', 'stop');
 				recognition.start();
