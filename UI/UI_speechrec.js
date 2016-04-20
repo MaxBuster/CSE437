@@ -15,6 +15,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
 	recognition.onresult = function() {
 		var interim_transcript = "";
+		var init_final_transcript = final_transcript;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript + "<br>";
@@ -26,8 +27,21 @@ if (!('webkitSpeechRecognition' in window)) {
 	    final_transcript = capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
 	    interim_span.innerHTML = linebreak(interim_transcript);
+
+	    if(init_final_transcript != final_transcript){
+	    	var latest = final_transcript.substr(init_final_transcript.length);
+	    	var msg = latest;
+	    	myUA.message(otherURI, msg);
+	    }  
 	}
 
+	myUA.on('message', function (msg) {
+		console.log("reached" +otherURI);
+		var msgbody = msg.body;
+        final_transcript += msgbody;
+        final_transcript = capitalize(final_transcript);
+	    final_span.innerHTML = linebreak(final_transcript);
+    });
 
 	var two_line = /\n\n/g;
 	var one_line = /\n/g;
