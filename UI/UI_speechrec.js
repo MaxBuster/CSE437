@@ -59,13 +59,13 @@ if (!('webkitSpeechRecognition' in window)) {
 	};
 
 	$(function(ready){
-		$( "#my-video-button" ).click(function() {
+		$( "#rec" ).click(function() {
 			if($(this).attr('value')=="start") {
-				//$(this).prop('value', 'stop');
+				$(this).prop('value', 'stop');
 				recognition.start();
 			}
 			else {
-				//$(this).prop('value', 'start');
+				$(this).prop('value', 'start');
 				recognition.stop();
 			}
 		});
