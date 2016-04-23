@@ -32,6 +32,7 @@ h1 {
 
 .panel-body {
   height: 400px;
+  overflow: scroll;
 }
 
 .label-info {
@@ -44,9 +45,5 @@ h1 {
 }
 
 .my_results {
-  background-color: #cce6ff;
-}
-
-#final_span {
-  overflow: scroll;
+  background: #cce6ff;
 }
