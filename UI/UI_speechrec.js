@@ -18,7 +18,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		var init_final_transcript = final_transcript;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
-	        final_transcript += "<p class='my_results col-md-5 pull-right well'>" + myName + ": " + event.results[i][0].transcript + "</p>";
+	        final_transcript += "<p class='row my_results col-md-8 pull-right well'>" + myName + ": " + event.results[i][0].transcript + "</p>";
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
 	      }
@@ -38,7 +38,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	myUA.on('message', function (msg) {
 		console.log("reached" +otherURI);
 		var msgbody = msg.body;
-		msgbody = msgbody.replace("my_results col-md-5 pull-right well", "other_results col-md-5 pull-left well");
+		msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
         final_transcript += msgbody;
         final_transcript = capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
