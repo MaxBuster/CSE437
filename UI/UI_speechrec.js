@@ -18,7 +18,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		var init_final_transcript = final_transcript;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
-	        final_transcript += myName + ": " + event.results[i][0].transcript + "<br>";
+	        final_transcript += "<p>" + myName + ": " + event.results[i][0].transcript + "</p>";
 	      } else {
 	        interim_transcript += myName + ": " + event.results[i][0].transcript;
 	      }
