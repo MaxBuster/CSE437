@@ -62,12 +62,12 @@ if (!('webkitSpeechRecognition' in window)) {
 		$( "#rec" ).click(function() {
 			if($(this).attr('value')=="start") {
 				$(this).prop('value', 'stop');
-				$(this).innerHTML = "stop transcription";
+				$(this).html("stop transcription");
 				recognition.start();
 			}
 			else {
 				$(this).prop('value', 'start');
-				$(this).innerHTML = "transcribe";
+				$(this).html("transcribe");
 				recognition.stop();
 			}
 		});
