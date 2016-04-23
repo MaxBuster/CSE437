@@ -7,7 +7,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		final_transcript = '';
 
 	recognition.continuous = true;
-  	recognition.interimResults = true;
+  	recognition.interimResults = false;
 
 	recognition.onstart = function() {
 		console.log("working");
@@ -20,13 +20,13 @@ if (!('webkitSpeechRecognition' in window)) {
 	      if (event.results[i].isFinal) {
 	        final_transcript += "<p>" + myName + ": " + event.results[i][0].transcript + "</p>";
 	      } else {
-	        interim_transcript += myName + ": " + event.results[i][0].transcript;
+	        interim_transcript += event.results[i][0].transcript;
 	      }
 	    }
 
 	    final_transcript =  capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
-	    interim_span.innerHTML = linebreak(interim_transcript);
+	    interim_span.innerHTML = myName + ": " + linebreak(interim_transcript);
 
 	    if(init_final_transcript != final_transcript){
 	    	var latest = final_transcript.substr(init_final_transcript.length);
