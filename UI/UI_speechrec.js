@@ -18,13 +18,13 @@ if (!('webkitSpeechRecognition' in window)) {
 		var init_final_transcript = final_transcript;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
-	        final_transcript += event.results[i][0].transcript + "<br>";
+	        final_transcript += myName + ": " + event.results[i][0].transcript + "<br>";
 	      } else {
-	        interim_transcript += event.results[i][0].transcript;
+	        interim_transcript += myName + ": " + event.results[i][0].transcript;
 	      }
 	    }
 
-	    final_transcript = capitalize(final_transcript);
+	    final_transcript =  capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
 	    interim_span.innerHTML = linebreak(interim_transcript);
 
