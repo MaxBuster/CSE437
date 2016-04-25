@@ -38,7 +38,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	myUA.on('message', function (msg) {
 		console.log("reached" +otherURI);
 		var msgbody = msg.body;
-		//msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
+		msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
         final_transcript += msgbody;
         final_transcript = capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
