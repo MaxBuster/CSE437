@@ -4,7 +4,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
 	var recognition = new webkitSpeechRecognition,
 		transcript = '',
-		final_transcript = '';
+		final_transcript = "";
 
 	recognition.continuous = true;
   	recognition.interimResults = false;
@@ -18,7 +18,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		var init_final_transcript = final_transcript;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
-	        final_transcript += "<p class='row my_results col-md-8 pull-right well'>" + myName + ": " + event.results[i][0].transcript + "</p>";
+	        final_transcript += myName + ": " + event.results[i][0].transcript + "<br>";
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
 	      }
@@ -26,7 +26,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
 	    final_transcript =  capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
-	    // interim_span.innerHTML = myName + ": " + linebreak(interim_transcript);
+	    interim_span.innerHTML =linebreak(interim_transcript);
 
 	    if(init_final_transcript != final_transcript){
 	    	var latest = final_transcript.substr(init_final_transcript.length);
@@ -38,7 +38,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	myUA.on('message', function (msg) {
 		console.log("reached" +otherURI);
 		var msgbody = msg.body;
-		msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
+		//msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
         final_transcript += msgbody;
         final_transcript = capitalize(final_transcript);
 	    final_span.innerHTML = linebreak(final_transcript);
@@ -59,6 +59,17 @@ if (!('webkitSpeechRecognition' in window)) {
 		console.log("stopped");
 	};
 
+	
+	function downloadInnerHtml(filename, elId) {
+	    var elHtml = document.getElementById(elId).innerHTML;
+	    var link = document.createElement('a');
+	    mimeType = 'text/html';
+
+	    link.setAttribute('download', filename);
+	    link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+	    link.click(); 
+	}
+
 	$(function(ready){
 		$( "#rec" ).click(function() {
 			if($(this).attr('value')=="start") {
@@ -71,6 +82,10 @@ if (!('webkitSpeechRecognition' in window)) {
 				$(this).html("transcribe");
 				recognition.stop();
 			}
+		});
+
+		$("#dl").click(function() {
+			downloadInnerHtml("transcript.html", 'final_span');
 		});
 	})
 
