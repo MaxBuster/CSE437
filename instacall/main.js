@@ -35,8 +35,21 @@ function MyApp() {
 
 /* This is the MyApp prototype. */
 MyApp.prototype = {
+    
+  
+  requestCredentials: function () {  
+        var data = new FormData();
+        data.append('Action', 'SessionCreate');
+        data.append('Username', 'barnardb@scribe.onsip.com');
+        data.append('Password', 'Mother123');
 
-  requestCredentials: function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://api.onsip.com/api', true);
+        xhr.onload = setCredentials;
+        xhr.send(data);
+  },
+    
+  /*requestCredentials: function () {
     var xhr = new XMLHttpRequest();
     xhr.onload = this.setCredentials.bind(this);
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
@@ -45,9 +58,10 @@ MyApp.prototype = {
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
-  },
+  },*/
 
   setCredentials: function (e) {
+          console.log(this.responseText);
     var xhr = e.target;
     var user, credentials;
 
