@@ -1,11 +1,23 @@
 /* This is the MyApp constructor. */
 function MyApp() {
+  this.addressInput = document.getElementById('address-input');
+  this.passwordInput = document.getElementById('password-input');
+  this.identityForm = document.getElementById('identity-form');
+  this.identityForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.requestCredentials();
+  }.bind(this), false);
+
   this.userAgentDiv = document.getElementById('user-agent');
   this.remoteMedia = document.getElementById('remote-media');
   this.remoteMedia.volume = 0.5;
 
+  this.destinationInput = document.getElementById('destination-input');
   this.inviteButton = document.getElementById('invite-button');
   this.inviteButton.addEventListener('click', this.sendInvite.bind(this), false);
+
+  this.acceptButton = document.getElementById('accept-button');
+  this.acceptButton.addEventListener('click', this.acceptSession.bind(this), false);
 
   this.terminateButton = document.getElementById('terminate-button');
   this.terminateButton.addEventListener('click', this.terminateSession.bind(this), false);
@@ -19,32 +31,22 @@ function MyApp() {
 
   this.muteButton = document.getElementById('mute-button');
   this.muteButton.addEventListener('click', this.toggleMute.bind(this), false);
-    
-  this.destinationInput = document.getElementById('destination-input');
 }
 
 /* This is the MyApp prototype. */
 MyApp.prototype = {
 
-    //this.addressInput.value
-    //this.passwordInput.value
-    
-  /* Request SIP credentials from the Admin API */
   requestCredentials: function () {
     var xhr = new XMLHttpRequest();
     xhr.onload = this.setCredentials.bind(this);
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
 
-    var userPass = 'barnardb@scribe.onsip.com:Mother123';
+    var userPass = this.addressInput.value + ':' + this.passwordInput.value;
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
   },
 
-  /*
-   * When we get a response to the API, read it to build
-   * a credentials object for SIP.js configuration.
-   */
   setCredentials: function (e) {
     var xhr = e.target;
     var user, credentials;
@@ -52,7 +54,7 @@ MyApp.prototype = {
     if (xhr.status === 200) {
       user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
       credentials = {
-        uri: 'barnardb@scribe.onsip.com',
+        uri: this.addressInput.value,
         authorizationUser: user.AuthUsername,
         password: user.Password,
         displayName: user.Contact.Name
@@ -65,27 +67,41 @@ MyApp.prototype = {
     this.createUA(credentials);
   },
 
-  /*
-   * We modify our previous `createUA` method to
-   * accept a credentials object as an argument.
-   *
-   * Since the identity process is complete, hide the form
-   * and show the user agent div.
-   */
   createUA: function (credentials) {
     this.identityForm.style.display = 'none';
     this.userAgentDiv.style.display = 'block';
     this.ua = new SIP.UA(credentials);
+
+    this.ua.on('invite', this.handleInvite.bind(this));
+  },
+
+  handleInvite: function (session) {
+    if (this.session) {
+      session.reject();
+      return;
+    }
+
+    this.setSession(session);
+
+    this.setStatus('Ring Ring! ' + session.remoteIdentity.uri.toString() + ' is calling!', true);
+    this.acceptButton.disabled = false;
+  },
+
+  acceptSession: function () {
+    if (!this.session) { return; }
+
+    this.acceptButton.disabled = true;
+    this.session.accept(this.remoteMedia);
   },
 
   sendInvite: function () {
-      var destination = this.destinationInput.value;
-      if (!destination) { return; }
+    var destination = this.destinationInput.value;
+    if (!destination) { return; }
 
-      var session = this.ua.invite(destination, this.remoteMedia);
+    var session = this.ua.invite(destination, this.remoteMedia);
 
-      this.setSession(session);
-      this.inviteButton.disabled = true;
+    this.setSession(session);
+    this.inviteButton.disabled = true; // TODO - use setStatus. Disable input, too?
   },
 
   setSession: function (session) {
@@ -157,4 +173,3 @@ MyApp.prototype = {
 };
 
 var MyApp = new MyApp();
-//MyApp.createUA();
