@@ -42,7 +42,7 @@ MyApp.prototype = {
         data.append('Action', 'SessionCreate');
         data.append('Username', 'barnardb@scribe.onsip.com');
         data.append('Password', 'Mother123');
-        data.append('Output', 'json');
+        //data.append('Output', 'json');
       
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
