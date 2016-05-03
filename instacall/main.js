@@ -49,7 +49,7 @@ MyApp.prototype = {
         xhr.onload = function () {
           var user, credentials;
           console.log(this.responseText);
-          user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
+          user = JSON.parse(this.responseText).Response.Result.UserRead.User;
           //console.log(user);
           credentials = {
             uri: this.addressInput.value,
@@ -57,6 +57,8 @@ MyApp.prototype = {
             password: user.Password,
             displayName: user.Contact.Name
           };
+            
+          this.createUA(credentials);
         }
         
         xhr.send(data);
@@ -71,7 +73,7 @@ MyApp.prototype = {
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
-  },*/
+  },
 
   setCredentials: function (e) {
     var xhr = e.target;
@@ -91,7 +93,7 @@ MyApp.prototype = {
     }
 
     this.createUA(credentials);
-  },
+  },*/
 
   createUA: function (credentials) {
     this.identityForm.style.display = 'none';
