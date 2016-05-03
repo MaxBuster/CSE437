@@ -61,9 +61,9 @@ MyApp.prototype = {
     xhr.onload = this.setCredentials.bind(this);
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json&SessionId=' + this.session_id);
 
-    //var userPass = this.addressInput.value + ':' + this.passwordInput.value;
-    //xhr.setRequestHeader('Authorization',
-    //                     'Basic ' + btoa(userPass));
+    var userPass = this.addressInput.value + ':' + this.passwordInput.value;
+    xhr.setRequestHeader('Authorization',
+                         'Basic ' + btoa(userPass));
     xhr.send();
   },
 
@@ -72,6 +72,7 @@ MyApp.prototype = {
     var user, credentials;
 
     if (xhr.status === 200) {
+        console.log(xhr.responseText);
       user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
       credentials = {
         uri: this.addressInput.value,
