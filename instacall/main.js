@@ -47,9 +47,10 @@ MyApp.prototype = {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
         xhr.onload = function () {
-          //console.log(this.responseText);
+          var user, credentials;
+          console.log(this.responseText);
           user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
-          console.log(user);
+          //console.log(user);
           credentials = {
             uri: 'barnardb@scribe.onsip.com',
             authorizationUser: user.AuthUsername,
