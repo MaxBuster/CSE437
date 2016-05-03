@@ -41,7 +41,7 @@ MyApp.prototype = {
         var data = new FormData();
         data.append('Action', 'SessionCreate');
         data.append('Username', 'barnardb@scribe.onsip.com');
-        data.append('Password', 'Mother123');
+        data.append('Password', 'abc');
         //data.append('Output', 'json');
       
         var xhr = new XMLHttpRequest();
