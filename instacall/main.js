@@ -37,7 +37,7 @@ function MyApp() {
 MyApp.prototype = {
     
   
-  requestCredentials: function () {  
+  requestAuth: function () {  
         var data = new FormData();
         data.append('Action', 'SessionCreate');
         data.append('Username', this.addressInput.value);
@@ -47,31 +47,23 @@ MyApp.prototype = {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
         xhr.onload = function () {
-          var user, credentials;
+          var sess;
           console.log(this.responseText);
-          user = JSON.parse(this.responseText).Response.Result.UserRead.User;
-          //console.log(user);
-          credentials = {
-            uri: this.addressInput.value,
-            authorizationUser: user.AuthUsername,
-            password: user.Password,
-            displayName: user.Contact.Name
-          };
-            
-          this.createUA(credentials);
+          sess = JSON.parse(this.responseText).Response.Context.Session.SessionId;
+          this.session_id = sess;
         }
         
         xhr.send(data);
   },
     
-  /*requestCredentials: function () {
+  requestCredentials: function () {
     var xhr = new XMLHttpRequest();
     xhr.onload = this.setCredentials.bind(this);
-    xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
+    xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json&SessionId=' + this.session_id);
 
-    var userPass = this.addressInput.value + ':' + this.passwordInput.value;
-    xhr.setRequestHeader('Authorization',
-                         'Basic ' + btoa(userPass));
+    //var userPass = this.addressInput.value + ':' + this.passwordInput.value;
+    //xhr.setRequestHeader('Authorization',
+    //                     'Basic ' + btoa(userPass));
     xhr.send();
   },
 
