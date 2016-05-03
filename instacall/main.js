@@ -40,6 +40,7 @@ MyApp.prototype = {
   requestCredentials: function () {  
         var data = new FormData();
         data.append('Action', 'SessionCreate');
+        data.append('Output', 'json');
         data.append('Username', 'barnardb@scribe.onsip.com');
         data.append('Password', 'Mother123');
 
