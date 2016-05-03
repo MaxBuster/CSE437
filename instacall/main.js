@@ -40,9 +40,9 @@ MyApp.prototype = {
   requestCredentials: function () {  
         var data = new FormData();
         data.append('Action', 'SessionCreate');
-        data.append('Username', 'barnardb@scribe.onsip.com');
-        data.append('Password', 'mother');
-        //data.append('Output', 'json');
+        data.append('Username', this.addressInput.value);
+        data.append('Password', this.passwordInput.value);
+        data.append('Output', 'json');
       
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
@@ -52,7 +52,7 @@ MyApp.prototype = {
           user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
           //console.log(user);
           credentials = {
-            uri: 'barnardb@scribe.onsip.com',
+            uri: this.addressInput.value,
             authorizationUser: user.AuthUsername,
             password: user.Password,
             displayName: user.Contact.Name
