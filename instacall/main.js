@@ -45,7 +45,7 @@ MyApp.prototype = {
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
-        xhr.onload = setCredentials;
+        xhr.onload = this.setCredentials.bind(this);
         xhr.send(data);
   },
     
