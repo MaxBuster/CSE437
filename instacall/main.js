@@ -85,7 +85,7 @@ MyApp.prototype = {
     }
 
     this.createUA(credentials);
-  },*/
+  },
 
   createUA: function (credentials) {
     this.identityForm.style.display = 'none';
