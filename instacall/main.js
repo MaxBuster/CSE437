@@ -43,7 +43,7 @@ MyApp.prototype = {
         data.append('Username', 'barnardb@scribe.onsip.com');
         data.append('Password', 'Mother123');
         data.append('Output', 'json');
-
+      
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://api.onsip.com/api', true);
         xhr.onload = function () {
@@ -58,10 +58,6 @@ MyApp.prototype = {
             displayName: user.Contact.Name
           };
         }
-        
-        var userPass = 'barnardb@scribe.onsip.com:Mother123';
-        xhr.setRequestHeader('Authorization',
-                             'Basic ' + btoa(userPass));
         
         xhr.send(data);
   },
