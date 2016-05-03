@@ -58,6 +58,11 @@ MyApp.prototype = {
             displayName: user.Contact.Name
           };
         }
+        
+        var userPass = 'barnardb@scribe.onsip.com:Mother123';
+        xhr.setRequestHeader('Authorization',
+                             'Basic ' + btoa(userPass));
+        
         xhr.send(data);
   },
     
