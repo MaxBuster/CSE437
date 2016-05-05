@@ -101,19 +101,6 @@ xhrHandler = function (e) {
             final_transcript = capitalize(final_transcript);
             final_span.innerHTML = linebreak(final_transcript);
         });
-
-        // We don't want to proceed until we've registered all users.
-        // For each registered user, increase the counter.
-        myUA.on('registered', markAsRegistered);
-        // If any registration fails, then we need to disable the app and tell the
-        // user that we could not register them.
-        myUA.on('registrationFailed', failRegistration);
-
-        // Unregister the user agents and terminate all active sessions when the
-        // window closes or when we navigate away from the page
-        window.onunload = function () {
-            myUA.stop();
-        };
     
     
         // We want to only run the demo if all users for the demo can register
@@ -139,6 +126,19 @@ xhrHandler = function (e) {
         function failInterfaceSetup() {
             alert('Max registration limit hit. Could not register all user agents, so they cannot communicate. The app is disabled.');
         }
+
+        // We don't want to proceed until we've registered all users.
+        // For each registered user, increase the counter.
+        myUA.on('registered', markAsRegistered);
+        // If any registration fails, then we need to disable the app and tell the
+        // user that we could not register them.
+        myUA.on('registrationFailed', failRegistration);
+
+        // Unregister the user agents and terminate all active sessions when the
+        // window closes or when we navigate away from the page
+        window.onunload = function () {
+            myUA.stop();
+        };
     };
 
 // Function: mediaOptions
