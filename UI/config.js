@@ -70,6 +70,7 @@ window.onload = function() {
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
+    alert("sent request");
 }
 
 setCredentials = function (e) {
