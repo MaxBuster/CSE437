@@ -61,7 +61,8 @@ var otherURI        = otherName + "@" + domain; // 'devlab-bob@' + domain;
 window.onload = function() {
     document.getElementById("your_name").innerHTML = "Your Name: " + myName;
     document.getElementById("their_name").innerHTML = "Their Name: " + otherName;
-    var xhr;
+    
+    var xhr = new XMLHttpRequest();
     xhr.onload = xhrHandler;
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
 
