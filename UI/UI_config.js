@@ -61,7 +61,7 @@ var otherURI        = otherName + "@" + domain; // 'devlab-bob@' + domain;
 window.onload = function() {
     document.getElementById("your_name").innerHTML = "Your Name: " + myName;
     document.getElementById("their_name").innerHTML = "Their Name: " + otherName;
-    
+    var xhr;
     xhr.onload = xhrHandler;
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
 
@@ -71,6 +71,7 @@ window.onload = function() {
     xhr.send();
     alert("sent request");
 }
+
 
 xhrHandler = function (e) {
             alert('Auth1');
@@ -92,6 +93,15 @@ xhrHandler = function (e) {
         }
 
         window.myUA = new SIP.UA(credentials);
+    
+        myUA.on('message', function (msg) {
+            console.log("reached" +otherURI);
+            var msgbody = msg.body;
+            msgbody = msgbody.replace("my_results col-md-8 pull-right well", "other_results col-md-8 pull-left well");
+            final_transcript += msgbody;
+            final_transcript = capitalize(final_transcript);
+            final_span.innerHTML = linebreak(final_transcript);
+        });
 
         // We don't want to proceed until we've registered all users.
         // For each registered user, increase the counter.
