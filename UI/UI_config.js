@@ -108,7 +108,6 @@ xhrHandler = function (e) {
         var numRegistered = 0;
         var registrationFailed = false;
         var markAsRegistered = function () {
-            alert("registered");
             numRegistered += 1;
             if (numRegistered >= numToRegister && !registrationFailed) {
                 setupInterfaces();
@@ -162,24 +161,6 @@ function mediaOptions(audio, video, remoteRender, localRender) {
             }
         }
     };
-}
-
-// Function: createUA
-//   creates a user agent with the given arguments plugged into the UA
-//   configuration. This is a standard user agent for WebRTC calls.
-//   For a user agent for data transfer, see createDataUA
-//
-// Arguments:
-//   callerURI: the URI of the caller, aka, the URI that belongs to this user.
-//   displayName: what name we should display the user as
-function createUA(callerURI, displayName) {
-    var configuration = {
-        traceSip: true,
-        uri: callerURI,
-        displayName: displayName
-    };
-    var userAgent = new SIP.UA(configuration);
-    return userAgent;
 }
 
 // Function: makeCall
@@ -262,27 +243,4 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
             });
         }
     });
-}
-
-// Function: createMsgTag
-//   creates the HTML tag and its children for a given message.
-//
-// Arguments:
-//   from: the display name of who the message came from
-//   msgBody: the actual body content of the message
-function createMsgTag(from, msgBody) {
-    var msgTag = document.createElement('p');
-    msgTag.className = 'message';
-    // Create the "from" section
-    var fromTag = document.createElement('span');
-    fromTag.className = 'message-from';
-    fromTag.appendChild(document.createTextNode(from + ':'));
-    // Create the message body
-    var msgBodyTag = document.createElement('span');
-    msgBodyTag.className = 'message-body';
-    msgBodyTag.appendChild(document.createTextNode(' ' + msgBody));
-    // Put everything in the message tag
-    msgTag.appendChild(fromTag);
-    msgTag.appendChild(msgBodyTag);
-    return msgTag;
 }
