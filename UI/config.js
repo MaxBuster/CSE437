@@ -79,11 +79,13 @@ setCredentials = function (e) {
     if (xhr.status === 200) {
       user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
       credentials = {
+        traceSip: true,
         uri: this.addressInput.value,
         authorizationUser: user.AuthUsername,
         password: user.Password,
         displayName: user.Contact.Name
       };
+        alert('Auth1');
     } else {
       alert('Authentication failed! Proceeding as anonymous.');
       credentials = {};
