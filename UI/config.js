@@ -73,6 +73,7 @@ window.onload = function() {
 }
 
 setCredentials = function (e) {
+        alert('Auth1');
     var xhr = e.target;
     var user, credentials;
 
@@ -80,12 +81,11 @@ setCredentials = function (e) {
       user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
       credentials = {
         traceSip: true,
-        uri: this.addressInput.value,
+        uri: 'barnardb@scribe.onsip.com',
         authorizationUser: user.AuthUsername,
         password: user.Password,
         displayName: user.Contact.Name
       };
-        alert('Auth1');
     } else {
       alert('Authentication failed! Proceeding as anonymous.');
       credentials = {};
