@@ -70,12 +70,10 @@ window.onload = function() {
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
-    alert("sent request");
 }
 
 
 xhrHandler = function (e) {
-            alert('Auth1');
         var xhr = e.target;
         var user, credentials;
 
@@ -116,6 +114,31 @@ xhrHandler = function (e) {
         window.onunload = function () {
             myUA.stop();
         };
+    
+    
+        // We want to only run the demo if all users for the demo can register
+        var numToRegister = 1;
+        var numRegistered = 0;
+        var registrationFailed = false;
+        var markAsRegistered = function () {
+            alert("registered");
+            numRegistered += 1;
+            if (numRegistered >= numToRegister && !registrationFailed) {
+                setupInterfaces();
+            }
+        };
+        var failRegistration = function () {
+            registrationFailed = true;
+            failInterfaceSetup();
+        };
+
+        // Only run the demo if we could register every user agent
+        function setupInterfaces() {
+            setUpVideoInterface(myUA, otherURI, 'video-of-other', 'my-video-button');
+        }
+        function failInterfaceSetup() {
+            alert('Max registration limit hit. Could not register all user agents, so they cannot communicate. The app is disabled.');
+        }
     };
 
 // Function: mediaOptions
@@ -229,7 +252,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
             button.firstChild.nodeValue = 'hang up';
             remoteRender.style.visibility = 'visible';
             session = makeCall(userAgent, target,
-                               true, true,
+                               true, false,
                                remoteRender, null);
             session.on('bye', function () {
                 onCall = false;
@@ -237,62 +260,6 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
                 remoteRender.style.visibility = 'hidden';
                 session = null;
             });
-        }
-    });
-}
-
-// Function: setUpMessageInterface
-//   Sets up the chat interface for text messaging
-//
-// Arguments:
-//   userAgent: the local user agent that sends and receives messages
-//   target: the target URI that our local user agent communicates with
-//   messageRenderId: the ID of where we display sent and received chat messages
-//   messageInputId: the ID for the text area that the local user agent types
-//                   his or her messages into
-//   buttonId: the ID of the button that actually sends the given input message
-function setUpMessageInterface(userAgent, target,
-                               messageRenderId, messageInputId, buttonId) {
-    var messageRender = document.getElementById(messageRenderId);
-    var messageInput = document.getElementById(messageInputId);
-    var button = document.getElementById(buttonId);
-
-    function sendMessage() {
-        var msg = messageInput.value;
-        // Only send a message if the message is non-empty
-        if (msg !== '') {
-            messageInput.value = '';
-            userAgent.message(target, msg);
-        }
-    }
-
-    // We have placeholder text in the message render box. It should be deleted
-    // after we have sent or received our first message. This keeps track of
-    // that.
-    var noMessages = true;
-
-    // Receive a message and put it in the message display div
-    userAgent.on('message', function (msg) {
-        // If we have not received any messages yet, remove the placeholder
-        // text.
-        if (noMessages) {
-            noMessages = false;
-            if (messageRender.childElementCount > 0)
-                messageRender.removeChild(messageRender.children[0]);
-        }
-        var msgTag = createMsgTag(msg.remoteIdentity.displayName, msg.body);
-        messageRender.appendChild(msgTag);
-    });
-    // Cut the content from the input textarea and send it
-    button.addEventListener('click', function () {
-        sendMessage();
-    });
-    // Register pressing of the "enter" key while in textarea to send a message.
-    // If user presses shift while entering, then add a newline instead.
-    messageInput.onkeydown = (function(e) {
-        if(e.keyCode == 13 && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
         }
     });
 }
@@ -319,39 +286,3 @@ function createMsgTag(from, msgBody) {
     msgTag.appendChild(msgBodyTag);
     return msgTag;
 }
-
-
-(function () {
-if (SIP.WebRTC.isSupported()) {
-    // Now we do SIP.js stuff
-	//window.myUA = createUA(myURI, myName); 
-
-    // We want to only run the demo if all users for the demo can register
-    var numToRegister = 1;
-    var numRegistered = 0;
-    var registrationFailed = false;
-    var markAsRegistered = function () {
-        alert("registered");
-        numRegistered += 1;
-        if (numRegistered >= numToRegister && !registrationFailed) {
-            setupInterfaces();
-        }
-    };
-    var failRegistration = function () {
-        registrationFailed = true;
-        failInterfaceSetup();
-    };
-
-    // Only run the demo if we could register every user agent
-    function setupInterfaces() {
-        setUpVideoInterface(myUA, otherURI, 'video-of-other', 'my-video-button');
-        //setUpMessageInterface(myUA, otherURI,
-        //                      'alice-message-display',
-        //                      'alice-message-input',
-        //                      'alice-message-button');
-    }
-    function failInterfaceSetup() {
-        alert('Max registration limit hit. Could not register all user agents, so they cannot communicate. The app is disabled.');
-    }
-}
-})();

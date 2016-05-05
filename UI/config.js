@@ -270,7 +270,6 @@ function createMsgTag(from, msgBody) {
 
 (function () {
 if (SIP.WebRTC.isSupported()) {
-    alert("1");
     // Now we do SIP.js stuff
     var xhr = new XMLHttpRequest();
     xhr.onload = function (e) {
