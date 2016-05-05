@@ -211,7 +211,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
         session.accept(options);
         session.on('bye', function () {
             onCall = false;
-            button.firstChild.nodeValue = 'video';
+            button.firstChild.nodeValue = 'call';
             remoteRender.style.visibility = 'hidden';
             session = null;
         });
@@ -222,7 +222,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
         // Was on a call, so the button press means we are hanging up
         if (onCall) {
             onCall = false;
-            button.firstChild.nodeValue = 'video';
+            button.firstChild.nodeValue = 'call';
             remoteRender.style.visibility = 'hidden';
             session.bye();
             session = null;
@@ -237,7 +237,7 @@ function setUpVideoInterface(userAgent, target, remoteRenderId, buttonId) {
                                remoteRender, null);
             session.on('bye', function () {
                 onCall = false;
-                button.firstChild.nodeValue = 'video';
+                button.firstChild.nodeValue = 'call';
                 remoteRender.style.visibility = 'hidden';
                 session = null;
             });
