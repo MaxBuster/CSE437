@@ -37,7 +37,7 @@ function MyApp() {
 MyApp.prototype = {
     
   
-  requestAuth: function () {  
+  /*requestAuth: function () {  
         var data = new FormData();
         data.append('Action', 'SessionCreate');
         data.append('Username', this.addressInput.value);
@@ -48,13 +48,12 @@ MyApp.prototype = {
         xhr.open('POST', 'https://api.onsip.com/api', true);
         xhr.onload = function () {
           var sess;
-          console.log(this.responseText);
           sess = JSON.parse(this.responseText).Response.Context.Session.SessionId;
           this.session_id = sess;
         }
         
         xhr.send(data);
-  },
+  },*/
     
   requestCredentials: function () {
     var xhr = new XMLHttpRequest();
@@ -72,7 +71,6 @@ MyApp.prototype = {
     var user, credentials;
 
     if (xhr.status === 200) {
-        console.log(xhr.responseText);
       user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
       credentials = {
         uri: this.addressInput.value,
