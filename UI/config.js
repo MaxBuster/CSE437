@@ -61,6 +61,48 @@ var otherURI        = otherName + "@" + domain; // 'devlab-bob@' + domain;
 window.onload = function() {
     document.getElementById("your_name").innerHTML = "Your Name: " + myName;
     document.getElementById("their_name").innerHTML = "Their Name: " + otherName;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onload = setCredentials;
+    xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
+
+    var userPass = 'barnardb@scribe.onsip.com:mother';
+    xhr.setRequestHeader('Authorization',
+                         'Basic ' + btoa(userPass));
+    xhr.send();
+}
+
+setCredentials = function (e) {
+    var xhr = e.target;
+    var user, credentials;
+
+    if (xhr.status === 200) {
+      user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
+      credentials = {
+        uri: this.addressInput.value,
+        authorizationUser: user.AuthUsername,
+        password: user.Password,
+        displayName: user.Contact.Name
+      };
+    } else {
+      alert('Authentication failed! Proceeding as anonymous.');
+      credentials = {};
+    }
+    
+    window.myUA = new SIP.UA(credentials);
+    
+    // We don't want to proceed until we've registered all users.
+    // For each registered user, increase the counter.
+    myUA.on('registered', markAsRegistered);
+    // If any registration fails, then we need to disable the app and tell the
+    // user that we could not register them.
+    myUA.on('registrationFailed', failRegistration);
+
+    // Unregister the user agents and terminate all active sessions when the
+    // window closes or when we navigate away from the page
+    window.onunload = function () {
+        myUA.stop();
+    };
 }
 
 // Function: mediaOptions
@@ -269,13 +311,13 @@ function createMsgTag(from, msgBody) {
 (function () {
 if (SIP.WebRTC.isSupported()) {
     // Now we do SIP.js stuff
-	window.myUA = createUA(myURI, myName); 
 
     // We want to only run the demo if all users for the demo can register
     var numToRegister = 1;
     var numRegistered = 0;
     var registrationFailed = false;
     var markAsRegistered = function () {
+        alert('Authentication succeeded.');
         numRegistered += 1;
         if (numRegistered >= numToRegister && !registrationFailed) {
             setupInterfaces();
@@ -284,18 +326,6 @@ if (SIP.WebRTC.isSupported()) {
     var failRegistration = function () {
         registrationFailed = true;
         failInterfaceSetup();
-    };
-    // We don't want to proceed until we've registered all users.
-    // For each registered user, increase the counter.
-    myUA.on('registered', markAsRegistered);
-    // If any registration fails, then we need to disable the app and tell the
-    // user that we could not register them.
-    myUA.on('registrationFailed', failRegistration);
-
-    // Unregister the user agents and terminate all active sessions when the
-    // window closes or when we navigate away from the page
-    window.onunload = function () {
-        myUA.stop();
     };
 
     // Only run the demo if we could register every user agent
