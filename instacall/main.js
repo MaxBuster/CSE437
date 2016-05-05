@@ -58,7 +58,7 @@ MyApp.prototype = {
   requestCredentials: function () {
     var xhr = new XMLHttpRequest();
     xhr.onload = this.setCredentials.bind(this);
-    xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json&SessionId=' + this.session_id);
+    xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
 
     var userPass = this.addressInput.value + ':' + this.passwordInput.value;
     xhr.setRequestHeader('Authorization',
