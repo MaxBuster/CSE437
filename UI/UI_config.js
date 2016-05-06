@@ -16,11 +16,6 @@ function $_GET(param) {
 }
 
 
-var myName      = $_GET('myName');
-var myURI       = myName + "@scribe.onsip.com";
-var myPass        = $_GET('myPass');
-var otherURI        = $_GET('theirURI');
-
 if (myName == null || myPass == null || otherURI == null) {
     window.location = "start_chat.html";
 }
