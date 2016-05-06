@@ -1,11 +1,5 @@
 var URL = window.URL || window.webkitURL;
 
-function getCookie(key) {
-    var re = new RegExp("(?:(?:^|.*;\s*) ?" + key + "\s*\=\s*([^;]*).*$)|^.*$");
-    return document.cookie.replace(re, "$1");
-
-}
-
 function $_GET(param) {
     var vars = {};
     window.location.href.replace( location.hash, '' ).replace( 
@@ -21,52 +15,25 @@ function $_GET(param) {
     return vars;
 }
 
-// This demo uses unauthenticated users on the "sipjs.onsip.com" demo domain.
-// To allow multiple users to run the demo without playing a game of
-// chatroulette, we give both callers in the demo a random token and then only
-// make calls between users with these token suffixes.
-// So, you still might run into a user besides yourself.
-function randomString(length, chars) {
-    var result = '';
-    for (var i = length; i > 0; --i)
-        result += chars[Math.round(Math.random() * (chars.length - 1))];
-    return result;
-}
-// Each session gets a token that expires 1 day later. This is so we minimize
-// the number of users we register for the SIP domain, because SIP hosts
-// generally have limits on the number of registered users you may have in total
-// or over a period of time.
-var token = getCookie('onsipToken');
-if (token === '') {
-    token = randomString(32, ['0123456789',
-                              'abcdefghijklmnopqrstuvwxyz',
-                              'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].join(''));
-    var d = new Date();
-    d.setTime(d.getTime() + 1000*60*60*24); // expires in 1 day
-    document.cookie = ('onsipToken=' + token + ';'
-                       + 'expires=' + d.toUTCString() + ';');
-}
 
-var domain = 'sipjs.onsip.com';
+var myName      = $_GET('myName');
+var myURI       = myName + "@scribe.onsip.com";
+var myPass        = $_GET('myPass');
+var otherURI        = $_GET('theirURI');
 
-var myName = $_GET('myName');
-var otherName = $_GET('theirName');
-if (myName == null || otherName == null) {
+if (myName == null || myPass == null || otherURI == null) {
     window.location = "start_chat.html";
 }
 
-var myURI      = myName + "@" + domain; // 'devlab-alice@' + domain;
-var otherURI        = otherName + "@" + domain; // 'devlab-bob@' + domain;
-
 window.onload = function() {
-    document.getElementById("your_name").innerHTML = "Your Name: " + myName;
-    document.getElementById("their_name").innerHTML = "Their Name: " + otherName;
+    document.getElementById("your_name").innerHTML = "Your Name: " + myURI;
+    document.getElementById("their_name").innerHTML = "Their Name: " + otherURI;
     
     var xhr = new XMLHttpRequest();
     xhr.onload = xhrHandler;
     xhr.open('get', 'https://api.onsip.com/api/?Action=UserRead&Output=json');
 
-    var userPass = 'barnardb@scribe.onsip.com:mother';
+    var userPass = myURI + ':' + myPass;//'barnardb@scribe.onsip.com:mother';
     xhr.setRequestHeader('Authorization',
                          'Basic ' + btoa(userPass));
     xhr.send();
@@ -81,14 +48,16 @@ xhrHandler = function (e) {
           user = JSON.parse(xhr.responseText).Response.Result.UserRead.User;
           credentials = {
             traceSip: true,
-            uri: 'barnardb@scribe.onsip.com',
+            uri: myURI,
             authorizationUser: user.AuthUsername,
             password: user.Password,
             displayName: user.Contact.Name
           };
         } else {
-          alert('Authentication failed! Proceeding as anonymous.');
+          alert('Authentication failed!');
           credentials = {};
+            window.location = "start_chat.html";
+            return;
         }
 
         window.myUA = new SIP.UA(credentials);
