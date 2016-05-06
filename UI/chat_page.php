@@ -10,11 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="sip-0.7.3.js"></script>
     <script type="text/javascript">
-        var myName      = <?php echo $_POST['myName']; ?>;
+        var myName      = "<?php echo $_POST['myName']; ?>";
         var myURI       = myName + "@scribe.onsip.com";
         // FIXME: Very bad solution to send the password like this
-        var myPass        = <?php echo $_POST['myPass']; ?>;
-        var otherURI        = <?php echo $_POST['theirURI']; ?>;
+        var myPass        = "<?php echo $_POST['myPass']; ?>";
+        var otherURI        = "<?php echo $_POST['theirURI']; ?>";
     </script>
     <script src="UI_config.js"></script>
     <script src="UI_speechrec.js"></script>
